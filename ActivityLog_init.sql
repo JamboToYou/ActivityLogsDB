@@ -39,7 +39,7 @@ CREATE TABLE [Employee]
     [Id] INT IDENTITY(1, 1),
     [Username] NVARCHAR(255) NOT NULL,
     [GradeId] INT NOT NULL,
-    [DepartmentId] INT NOT NULL,
+    [DepartmentId] INT,
     CONSTRAINT [PK_Employee] PRIMARY KEY ([Id]),
     CONSTRAINT [FK_Employee_Grade_EmpsGrade] FOREIGN KEY ([GradeId]) REFERENCES [Grade]([Id])
 );
@@ -111,7 +111,7 @@ CREATE TABLE [ProjectStage]
     CONSTRAINT [PK_ProjectStage] PRIMARY KEY ([Id]),
     CONSTRAINT [FK_Project_ProjectStage_ProjOfStage] FOREIGN KEY ([ProjectId]) REFERENCES [Project]([Id]),
 
-    UNIQUE([Order])
+    CONSTRAINT [UQ_ProjectStage_ProjectOrder] UNIQUE NONCLUSTERED ([ProjectId], [Order])
 );
 
 IF EXISTS (SELECT * FROM sys.tables WHERE NAME = 'Permission' AND TYPE = 'U')

@@ -5,19 +5,33 @@ CREATE OR ALTER PROCEDURE [LogActivity]
     @message NVARCHAR(2048),
     @projectStageId INT,
     @from DATETIME2,
-    @to DATETIME2
+    @to DATETIME2,
+    @logId INT OUTPUT
 AS
 BEGIN
     IF @projectStageId IS NULL OR NOT EXISTS (SELECT [Id] FROM [ProjectStage] WHERE [Id] = @projectStageId)
-        RAISERROR('Passed NULL value for @projectStageId or given project doesn`t exist', 16, 1);
+    BEGIN
+        RAISERROR('Passed NULL value for @projectStageId or given project stage doesn`t exist', 16, 1);
+        RETURN -1;
+    END;
 
     IF @employeeId IS NULL OR NOT EXISTS (SELECT [Id] FROM [Employee] WHERE [Id] = @employeeId)
-        RAISERROR('Passed NULL value for @employeeId or given project doesn`t exist', 16, 1);
+    BEGIN
+        RAISERROR('Passed NULL value for @employeeId or given employee doesn`t exist', 16, 1);
+        RETURN -1;
+    END;
 
     IF @from IS NULL OR @to IS NULL
+    BEGIN
         RAISERROR('Working time range must be specified', 16, 1);
+        RETURN -1;
+    END;
+
+    DECLARE @newId TABLE([Id] INT NOT NULL);
 
     INSERT INTO [ActivityLog]([EmployeeId], [Message], [ProjectStageId], [WorkedFrom], [WorkedTo])
-    OUTPUT INSERTED.[Id]
+    OUTPUT INSERTED.[Id] INTO @newId
     VALUES(@employeeId, @message, @projectStageId, @from, @to);
+
+    SET @logId = (SELECT [Id] FROM @newId);
 END;
