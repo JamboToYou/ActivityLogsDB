@@ -67,14 +67,4 @@ EXEC SetPermissionToProject @proj_external, @pm_ivanov, NULL;
 EXEC SetPermissionToProject @proj_external, @sen_petrov, NULL;
 EXEC SetPermissionToProject @proj_external, @stf_sidorov, NULL;
 EXEC SetPermissionToProject @proj_external, @int_skvortsov, NULL;
-
-SELECT * FROM [Permission];
 -- =========== ~Permissions seeding =========== --
-
--- =========== Activity logging seeding =========== --
--- @employeeId INT,
--- @message NVARCHAR(2048),
--- @projectStageId INT,
--- @from DATETIME2,
--- @to DATETIME2,
--- =========== ~Activity logging seeding =========== --
