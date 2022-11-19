@@ -35,7 +35,7 @@ echo "Initializing triggers completed."
 
 
 echo "Seeding database. . ."
-sqlcmd -S "(localdb)\mssqllocaldb" -d ActivityLogsDB -i .\ActivityLog_seed.sql > NULL
+sqlcmd -S "(localdb)\mssqllocaldb" -d ActivityLogsDB -i .\ActivityLog_seed.sql | out-null
 echo "Seeding done."
 
 

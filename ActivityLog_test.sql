@@ -9,7 +9,7 @@ DECLARE @dt3 DATETIME2 = CONVERT(DATETIME2, N'2022-10-01 15:00:00');
 DECLARE @dt4 DATETIME2 = CONVERT(DATETIME2, N'2022-10-01 20:00:00');
 
 EXEC LogActivity @pm_ivanov, NULL, @p_int_stage1, @dt1, @dt2, NULL;
-EXEC LogActivity @pm_ivanov, NULL, @p_int_stage1, @dt2, @dt3, NULL;
+-- EXEC LogActivity @pm_ivanov, NULL, @p_int_stage1, @dt2, @dt3, NULL;s
 -- EXEC LogActivisty @pm_ivanov, NULL, @p_int_stage1, @dt3, @dt4, NULL;
 
 SELECT
